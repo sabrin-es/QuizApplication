@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class MCQ extends Question {
@@ -20,6 +22,37 @@ public class MCQ extends Question {
         this.op3 = op3;
         this.op4 = op4;
         this.correct = correct;
+    }
+
+    public ArrayList<MCQ> load(String code) {
+        ArrayList<MCQ> mcqs = new ArrayList<>();
+        String sql = "SELECT * FROM mcq_questions WHERE code = ?";
+
+        try (Connection conn = DBConnection.getconnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, code);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    String title = rs.getString("title");
+                    String questionText = rs.getString("questionText");
+                    int difficulty = rs.getInt("difficulty");
+                    String op1 = rs.getString("op1");
+                    String op2 = rs.getString("op2");
+                    String op3 = rs.getString("op3");
+                    String op4 = rs.getString("op4");
+                    String correct = rs.getString("correct");
+
+                    MCQ q = new MCQ(title, questionText, difficulty, code, op1, op2, op3, op4, correct);
+                    mcqs.add(q);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to load MCQ questions from database.");
+        }
+
+        return mcqs;
     }
 
     public void addQuestion() {

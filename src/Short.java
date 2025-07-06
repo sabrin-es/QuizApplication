@@ -1,7 +1,9 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 public class Short extends Question {
     public String answer;
@@ -14,6 +16,35 @@ public class Short extends Question {
         super(title, questionText, difficulty, code);
         this.answer = answer;
         this.correct = correct;
+    }
+
+    public ArrayList<Short> load(String code) {
+        ArrayList<Short> shorts = new ArrayList<>();
+        String sql = "SELECT * FROM short_questions WHERE code = ?";
+
+        try (Connection conn = DBConnection.getconnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, code);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    String title = rs.getString("title");
+                    String questionText = rs.getString("questionText");
+                    int difficulty = rs.getInt("difficulty");
+                    String answer = rs.getString("answer");
+                    String correct = rs.getString("correct");
+
+                    Short q = new Short(title, questionText, difficulty, code, answer, correct);
+                    shorts.add(q);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to load short questions from database.");
+        }
+        return shorts;
     }
 
     public void addQuestion() {
