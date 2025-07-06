@@ -84,6 +84,11 @@ public class Login extends JFrame {
         panel.add(Box.createRigidArea(new Dimension(0, 50)));
         panel.add(buttonPanel);
 
+        backButton.addActionListener(e ->{
+            new MainFrame();
+            dispose();
+        });
+
         add(panel);
         setVisible(true);
     }

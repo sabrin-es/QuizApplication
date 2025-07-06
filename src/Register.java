@@ -17,7 +17,7 @@ public class Register extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // Title
-        JLabel title = new JLabel("Register");
+        JLabel title = new JLabel("Choose an option: ");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setFont(new Font("Serif", Font.BOLD, 36));
         title.setForeground(Color.BLACK);
@@ -53,6 +53,14 @@ public class Register extends JFrame {
         });
 
         // TODO: Add actions for studentButton and teacherButton as needed
+        studentButton.addActionListener(e -> {
+            new StudentRegister();
+            dispose();
+        });
+        teacherButton.addActionListener(e -> {
+            new TeacherRegister();
+            dispose();
+        });
 
         add(panel);
         setVisible(true);
