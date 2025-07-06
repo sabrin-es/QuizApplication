@@ -103,7 +103,8 @@ public class TeacherRegister extends JFrame {
         Teacher teacher = new Teacher(name, email, password, department);
         teacher.register();
 
-        JOptionPane.showMessageDialog(this, "Teacher registered successfully!");
+        new TeacherPanel();
+        dispose();
         clearForm();
         // new TeacherPanel(); ← if you have one
     }
@@ -114,6 +115,7 @@ public class TeacherRegister extends JFrame {
         deptField.setText("");
         passwordField.setText("");
     }
+
 
     public static void main(String[] args) {
         new TeacherRegister();

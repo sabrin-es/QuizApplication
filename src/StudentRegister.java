@@ -120,11 +120,13 @@ public class StudentRegister extends JFrame {
             Student student = new Student(name, email, password, department, roll, regNo);
             student.register();
             clearForm();
-            //new StudentPanel
+            new StudentPanel();
+            dispose();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Roll and Registration No must be numbers.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     private void clearForm() {

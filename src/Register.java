@@ -52,7 +52,6 @@ public class Register extends JFrame {
             dispose();
         });
 
-        // TODO: Add actions for studentButton and teacherButton as needed
         studentButton.addActionListener(e -> {
             new StudentRegister();
             dispose();
