@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TeacherRegister extends JFrame {
+
+    private JTextField nameField, emailField, deptField;
+    private JPasswordField passwordField;
+
     public TeacherRegister() {
         setTitle("Teacher Registration");
         setSize(900, 700);
@@ -34,11 +38,11 @@ public class TeacherRegister extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Form Fields
-        JTextField nameField = new JTextField(); nameField.setPreferredSize(fieldSize);
-        JTextField emailField = new JTextField(); emailField.setPreferredSize(fieldSize);
-        JTextField deptField = new JTextField(); deptField.setPreferredSize(fieldSize);
-        JPasswordField passwordField = new JPasswordField(); passwordField.setPreferredSize(fieldSize);
+        // Initialize fields
+        nameField = new JTextField(); nameField.setPreferredSize(fieldSize);
+        emailField = new JTextField(); emailField.setPreferredSize(fieldSize);
+        deptField = new JTextField(); deptField.setPreferredSize(fieldSize);
+        passwordField = new JPasswordField(); passwordField.setPreferredSize(fieldSize);
 
         String[] labels = {"Name:", "Email:", "Department:", "Password:"};
         Component[] fields = {nameField, emailField, deptField, passwordField};
@@ -71,8 +75,9 @@ public class TeacherRegister extends JFrame {
         buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         buttonPanel.add(backBtn);
 
+        registerBtn.addActionListener(e -> registerTeacher());
         backBtn.addActionListener(e -> {
-            new Register();
+            new Register(); // Replace with actual Register frame
             dispose();
         });
 
@@ -82,6 +87,32 @@ public class TeacherRegister extends JFrame {
 
         add(mainPanel);
         setVisible(true);
+    }
+
+    private void registerTeacher() {
+        String name = nameField.getText().trim();
+        String email = emailField.getText().trim();
+        String department = deptField.getText().trim();
+        String password = new String(passwordField.getPassword()).trim();
+
+        if (name.isEmpty() || email.isEmpty() || department.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter all the information.", "Missing Data", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Teacher teacher = new Teacher(name, email, password, department);
+        teacher.register();
+
+        JOptionPane.showMessageDialog(this, "Teacher registered successfully!");
+        clearForm();
+        // new TeacherPanel(); ← if you have one
+    }
+
+    private void clearForm() {
+        nameField.setText("");
+        emailField.setText("");
+        deptField.setText("");
+        passwordField.setText("");
     }
 
     public static void main(String[] args) {

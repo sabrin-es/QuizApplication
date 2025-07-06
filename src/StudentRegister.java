@@ -118,7 +118,7 @@ public class StudentRegister extends JFrame {
 
             // All valid, create student
             Student student = new Student(name, email, password, department, roll, regNo);
-            JOptionPane.showMessageDialog(this, "Student registered successfully!");
+            student.register();
             clearForm();
             //new StudentPanel
 
