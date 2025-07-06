@@ -37,6 +37,31 @@ public class Student extends User {
             MainFrame mainFrame = new MainFrame();
             mainFrame.setVisible(true);
         }
+    }
 
+    public boolean login(String email, String password) {
+        try (Connection conn = DBConnection.getconnection()) {
+            String query = "SELECT * FROM students WHERE email = ? AND password = ?";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, email);
+            pst.setString(2, password);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                this.name = rs.getString("name");
+                this.email = rs.getString("email");
+                this.password = rs.getString("password");
+                this.department = rs.getString("department");
+                this.roll = rs.getInt("roll");
+                this.registration = rs.getInt("registration");
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

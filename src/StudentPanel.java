@@ -53,7 +53,10 @@ public class StudentPanel extends JFrame {
         getContentPane().add(btnBack);
 
         // Action listeners
-        btnGiveExam.addActionListener(e -> JOptionPane.showMessageDialog(this, "Give Exam clicked"));
+        btnGiveExam.addActionListener(e -> {
+            new Exam();
+            dispose();
+        });
         btnViewLeaderBoard.addActionListener(e -> JOptionPane.showMessageDialog(this, "View LeaderBoard clicked"));
         btnBack.addActionListener(e -> {
             new MainFrame();

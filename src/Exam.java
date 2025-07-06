@@ -108,9 +108,10 @@ public class Exam extends JFrame {
                 return;
             }
 
-            // Now open ExamFrame with parameters
+            // ✅ Corrected: LoadQuestions(type, code, difficulty)
             ExamFrame examFrame = new ExamFrame();
-            examFrame.LoadQuestions(code, type, difficulty);
+            examFrame.setVisible(true);
+            examFrame.LoadQuestions(type, code, difficulty);
             dispose();
         });
 
@@ -125,6 +126,6 @@ public class Exam extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Exam());
+        SwingUtilities.invokeLater(Exam::new);
     }
 }

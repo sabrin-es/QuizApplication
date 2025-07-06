@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Teacher extends User {
 
@@ -24,7 +21,6 @@ public class Teacher extends User {
 
             if (rows > 0) {
                 JOptionPane.showMessageDialog(null, "Teacher registered successfully!");
-                // Open TeacherPanel first
                 TeacherPanel teacherPanel = new TeacherPanel();
                 teacherPanel.setVisible(true);
             }
@@ -35,6 +31,29 @@ public class Teacher extends User {
             MainFrame mainFrame = new MainFrame();
             mainFrame.setVisible(true);
         }
+    }
 
+    public boolean login(String email, String password) {
+        try (Connection conn = DBConnection.getconnection()) {
+            String query = "SELECT * FROM teachers WHERE email = ? AND password = ?";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, email);
+            pst.setString(2, password);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                this.name = rs.getString("name");
+                this.email = rs.getString("email");
+                this.password = rs.getString("password");
+                this.department = rs.getString("department");
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

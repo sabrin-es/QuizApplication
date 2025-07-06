@@ -24,6 +24,22 @@ public class MCQ extends Question {
         this.correct = correct;
     }
 
+    public String getOp1()
+    {
+        return op1;
+    }
+    public String getOp2()
+    {
+        return op2;
+    }
+    public String getOp3()
+    {
+        return op3;
+    }
+    public String getOp4()
+    {
+        return op4;
+    }
     public ArrayList<MCQ> load(String code) {
         ArrayList<MCQ> mcqs = new ArrayList<>();
         String sql = "SELECT * FROM mcq_questions WHERE code = ?";
