@@ -2,8 +2,8 @@ public class MCQSet extends QuestionSet{
 
     public String question, op1, op2, op3, op4, correct;
     public MCQSet() {}
-    public MCQSet(String title, int amount, int difficulty, boolean type, String code) {
-        super(title, amount, difficulty, type, code);
+    public MCQSet(String title, int amount, String type, String code) {
+        super(title, amount, type, code);
     }
 
     public void setQuestion(String question, String op1, String op2, String op3, String op4, String correct)
