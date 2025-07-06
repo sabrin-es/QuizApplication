@@ -5,7 +5,7 @@ public class QuestionPaperDetails extends JFrame {
 
     private Color backgroundColor = Color.decode("#e6f0ff");
     private Color buttonColor = new Color(179, 198, 255);
-    private Font labelFont = new Font("Arial", Font.BOLD, 16);
+    private Font labelFont = new Font("Arial", Font.PLAIN, 16);
     private Dimension buttonSize = new Dimension(180, 45);
 
     private JTextField titleField;
@@ -25,7 +25,7 @@ public class QuestionPaperDetails extends JFrame {
 
         // Labels
         JLabel heading = new JLabel("Question Paper Details", SwingConstants.CENTER);
-        heading.setFont(new Font("Serif", Font.BOLD, 28));
+        heading.setFont(new Font("Serif", Font.PLAIN, 28));
         heading.setBounds(0, 50, 900, 40);
         getContentPane().add(heading);
 
@@ -94,13 +94,12 @@ public class QuestionPaperDetails extends JFrame {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number!");
                     return;
                 }
-                if (type.equalsIgnoreCase("MCQ")) {
-                    new MCQSet(title, num, type, code); // if it's a JFrame
-                } else {
-                    new ShortqSet(title, num, type, code);
-                }
 
-                dispose();
+                for(int i = 1; i <= num; i++)
+                {
+                    new AddQuestion(type, i);
+                    dispose();
+                }
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Please enter a valid number!");
