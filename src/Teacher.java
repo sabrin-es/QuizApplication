@@ -12,7 +12,7 @@ public class Teacher extends User {
 
     public void register() {
         try (Connection conn = DBConnection.getconnection()) {
-            String query = "INSERT INTO students (name, email, password, department, roll, registration) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO teachers (name, email, password, department) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             pst.setString(1, name);
@@ -24,11 +24,16 @@ public class Teacher extends User {
 
             if (rows > 0) {
                 JOptionPane.showMessageDialog(null, "Teacher registered successfully!");
+                // Open TeacherPanel first
+                TeacherPanel teacherPanel = new TeacherPanel();
+                teacherPanel.setVisible(true);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Registration failed!");
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
         }
 
     }

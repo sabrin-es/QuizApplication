@@ -23,12 +23,13 @@ public class QuestionPaperDetails extends JFrame {
         getContentPane().setBackground(backgroundColor);
         getContentPane().setLayout(null);
 
-        // Labels
+        // Heading
         JLabel heading = new JLabel("Question Paper Details", SwingConstants.CENTER);
         heading.setFont(new Font("Serif", Font.PLAIN, 28));
         heading.setBounds(0, 50, 900, 40);
         getContentPane().add(heading);
 
+        // Labels
         JLabel titleLabel = new JLabel("Title:");
         JLabel codeLabel = new JLabel("Code:");
         JLabel numberLabel = new JLabel("Number of questions:");
@@ -76,36 +77,32 @@ public class QuestionPaperDetails extends JFrame {
             getContentPane().add(buttons[i]);
         }
 
-        // Actions
+        // Button Actions
         createQuestionButton.addActionListener(e -> {
             try {
-                int num = -1;
                 String title = titleField.getText();
                 String code = codeField.getText();
-                num = Integer.parseInt(numberField.getText());
+                int num = Integer.parseInt(numberField.getText());
                 String type = (String) typeComboBox.getSelectedItem();
 
-                if (title.isEmpty() || code.isEmpty()){
+                if (title.isEmpty() || code.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Please enter all the information.", "Missing Data", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if(num < 0)
-                {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid number!");
+
+                if (num <= 0) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid number!");
                     return;
                 }
 
-                for(int i = 1; i <= num; i++)
-                {
-                    new AddQuestion(type, i);
-                    dispose();
-                }
+                new AddQuestion(type, num);
+
+                dispose();
 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Please enter a valid number!");
+                JOptionPane.showMessageDialog(this, "Please enter a valid number!");
             }
         });
-
 
         backButton.addActionListener(e -> {
             new TeacherPanel();
@@ -114,8 +111,6 @@ public class QuestionPaperDetails extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new QuestionPaperDetails().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new QuestionPaperDetails().setVisible(true));
     }
 }

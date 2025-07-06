@@ -27,11 +27,15 @@ public class Student extends User {
 
             if (rows > 0) {
                 JOptionPane.showMessageDialog(null, "Student registered successfully!");
+                StudentPanel studentPanel = new StudentPanel();
+                studentPanel.setVisible(true);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Registration failed!");
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
         }
 
     }

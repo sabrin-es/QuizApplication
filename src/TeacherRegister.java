@@ -39,10 +39,14 @@ public class TeacherRegister extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Initialize fields
-        nameField = new JTextField(); nameField.setPreferredSize(fieldSize);
-        emailField = new JTextField(); emailField.setPreferredSize(fieldSize);
-        deptField = new JTextField(); deptField.setPreferredSize(fieldSize);
-        passwordField = new JPasswordField(); passwordField.setPreferredSize(fieldSize);
+        nameField = new JTextField();
+        nameField.setPreferredSize(fieldSize);
+        emailField = new JTextField();
+        emailField.setPreferredSize(fieldSize);
+        deptField = new JTextField();
+        deptField.setPreferredSize(fieldSize);
+        passwordField = new JPasswordField();
+        passwordField.setPreferredSize(fieldSize);
 
         String[] labels = {"Name:", "Email:", "Department:", "Password:"};
         Component[] fields = {nameField, emailField, deptField, passwordField};
@@ -50,7 +54,8 @@ public class TeacherRegister extends JFrame {
         for (int i = 0; i < labels.length; i++) {
             JLabel label = new JLabel(labels[i]);
             label.setFont(labelFont);
-            gbc.gridx = 0; gbc.gridy = i;
+            gbc.gridx = 0;
+            gbc.gridy = i;
             formPanel.add(label, gbc);
             gbc.gridx = 1;
             formPanel.add(fields[i], gbc);
@@ -77,7 +82,7 @@ public class TeacherRegister extends JFrame {
 
         registerBtn.addActionListener(e -> registerTeacher());
         backBtn.addActionListener(e -> {
-            new Register(); // Replace with actual Register frame
+            new Register(); // Replace with actual Register frame if needed
             dispose();
         });
 
@@ -103,19 +108,11 @@ public class TeacherRegister extends JFrame {
         Teacher teacher = new Teacher(name, email, password, department);
         teacher.register();
 
-        new TeacherPanel();
+
+
+        // Close current frame
         dispose();
-        clearForm();
-        // new TeacherPanel(); ← if you have one
     }
-
-    private void clearForm() {
-        nameField.setText("");
-        emailField.setText("");
-        deptField.setText("");
-        passwordField.setText("");
-    }
-
 
     public static void main(String[] args) {
         new TeacherRegister();
